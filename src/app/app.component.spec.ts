@@ -1,9 +1,10 @@
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { TestBed, waitForAsync } from '@angular/core/testing';
 
 import { AppComponent } from './app.component';
 import { UserService } from './user.service';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 const userServiceStub = {
 };
@@ -11,11 +12,11 @@ const userServiceStub = {
 describe('AppComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [AppComponent],
-      imports: [HttpClientTestingModule],
-      providers: [{ provide: UserService, use: userServiceStub }],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+    declarations: [AppComponent],
+    schemas: [NO_ERRORS_SCHEMA],
+    imports: [],
+    providers: [{ provide: UserService, use: userServiceStub }, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+}).compileComponents();
   }));
   it('should create the app', waitForAsync(() => {
     const fixture = TestBed.createComponent(AppComponent);

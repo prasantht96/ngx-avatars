@@ -1,7 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import {
-  HttpClientTestingModule,
-  HttpTestingController
+  HttpTestingController, provideHttpClientTesting
 } from '@angular/common/http/testing';
 
 import { AvatarService } from './avatar.service';
@@ -16,10 +15,10 @@ describe('AvatarService', () => {
   describe('Avatar service with default configuration', () => {
     beforeEach(() => {
       TestBed.configureTestingModule({
-        imports: [HttpClientTestingModule],
         providers: [
           AvatarService,
-          AvatarConfigService
+          AvatarConfigService,
+          provideHttpClientTesting
         ]
       });
 

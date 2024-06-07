@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 import { AvatarModule } from 'ngx-avatars';
 
@@ -9,16 +9,9 @@ import { UserService } from './user.service';
 
 const avatarColors = ['#FFB6C1', '#2c3e50', '#95a5a6', '#f39c12', '#1abc9c'];
 
-@NgModule({
-  declarations: [AppComponent],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    AvatarModule.forRoot({
-      colors: avatarColors
-    })
-  ],
-  providers: [UserService],
-  bootstrap: [AppComponent]
-})
+@NgModule({ declarations: [AppComponent],
+    bootstrap: [AppComponent], imports: [BrowserModule,
+        AvatarModule.forRoot({
+            colors: avatarColors
+        })], providers: [UserService, provideHttpClient(withInterceptorsFromDi())] })
 export class AppModule {}

@@ -8,6 +8,7 @@ import {SimpleChange} from '@angular/core';
 import {AvatarSource} from './sources/avatar-source.enum';
 import {Observable, of, throwError} from 'rxjs';
 import {Source} from './sources/source';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 
 class AvatarServiceMock {
   public fetchAvatar(avatarUrl: string): Observable<{ avatar_url: string }> {
@@ -53,6 +54,7 @@ describe('AvatarComponent', () => {
       declarations: [AvatarComponent],
       providers: [
         SourceFactory,
+        provideHttpClientTesting,
         {provide: AvatarService, useClass: AvatarServiceMock}
       ]
     }).compileComponents();
